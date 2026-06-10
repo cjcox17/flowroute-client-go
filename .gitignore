@@ -42,3 +42,4 @@ dist/
 
 # Example binaries (compiled by `go build` in subdirectories)
 examples/*/*
+!examples/*/*.go
