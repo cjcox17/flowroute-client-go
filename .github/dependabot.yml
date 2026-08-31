@@ -1,0 +1,34 @@
+# Dependabot version 2 configuration
+# Docs: https://docs.github.com/en/code-security/dependabot/dependabot-updates/configuration-options-for-the-dependency-file
+version: 2
+updates:
+  # Go modules — daily at 04:00 UTC.
+  # CVE PRs are opened automatically by the repo's Dependabot *security
+  # updates* setting (Settings → Code security and analysis), independent of
+  # this file. This file adds scheduled version updates and grouping.
+  - package-ecosystem: "gomod"
+    directory: "/"
+    schedule:
+      interval: "daily"
+      time: "04:00"
+      timezone: "Etc/UTC"
+    labels:
+      - "dependencies"
+      - "backend"
+    # Group related updates to reduce PR noise.
+    groups:
+      "go-minor-patch":
+        update-types:
+          - "minor"
+          - "patch"
+
+  # Keep GitHub Actions up to date — daily at 04:00 UTC.
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "daily"
+      time: "04:00"
+      timezone: "Etc/UTC"
+    labels:
+      - "dependencies"
+      - "ci"
