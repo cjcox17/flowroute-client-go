@@ -1,0 +1,66 @@
+version: "2"
+
+run:
+  modules-download-mode: readonly
+  tests: true
+
+linters:
+  default: none
+  enable:
+    - errcheck
+    - gocritic
+    - gosec
+    - govet
+    - ineffassign
+    - misspell
+    - staticcheck
+    - revive
+    - unused
+    - gocyclo
+    - goconst
+    - unparam
+    - predeclared
+  settings:
+    errcheck:
+      exclude-functions:
+        - (*database/sql.Rows).Close
+        - (*database/sql.Stmt).Close
+        - (io.Closer).Close
+    staticcheck:
+      checks: ["all"]
+    govet:
+      enable-all: true
+      disable:
+        - fieldalignment
+        - shadow
+    revive:
+      rules:
+        - name: exported
+          severity: warning
+        - name: errorf
+          severity: warning
+        - name: unused-parameter
+          severity: warning
+    gocyclo:
+      min-complexity: 12
+    gocritic:
+      enabled-checks:
+        - nilValReturn
+        - rangeValCopy
+        - sloppyReassign
+  exclusions:
+    rules:
+      # Test files contain repeated literal fixture/assertion strings that are
+      # noise for goconst.
+      - path: _test\.go
+        linters:
+          - goconst
+
+formatters:
+  enable:
+    - gofmt
+    - goimports
+  settings:
+    goimports:
+      local-prefixes:
+        - github.com/cjcox17/flowroute-client-go
